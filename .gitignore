@@ -1,0 +1,55 @@
+# ===============================
+# RAW / SENSITIVE / LARGE DATA
+# ===============================
+data/
+*.fastq
+*.fq
+*.bam
+*.sam
+*.vcf
+*.fasta
+*.fcs
+
+# ===============================
+# R PROJECT TEMP FILES
+# ===============================
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+
+# ===============================
+# RENV (VERY IMPORTANT RULE)
+# ===============================
+renv/library/
+renv/staging/
+# keep renv.lock (DO NOT ignore)
+
+# ===============================
+# OUTPUTS THAT CAN BE REGENERATED
+# ===============================
+outputs/
+results/
+figures/
+*.png
+*.pdf
+*.tiff
+*.jpeg
+
+# ===============================
+# CACHE / RENDER ARTIFACTS
+# ===============================
+*_cache/
+*_files/
+
+# ===============================
+# OS / EDITOR JUNK
+# ===============================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===============================
+# LOGS
+# ===============================
+*.log
