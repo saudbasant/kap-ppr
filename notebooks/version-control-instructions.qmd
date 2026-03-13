@@ -4,10 +4,9 @@ format: html
 editor: visual
 ---
 
-*If the project does not exist anywhere. Create locally first.
-If the project already exists on GitHub. Clone it.*
+*If the project does not exist anywhere. Create locally first. If the project already exists on GitHub. Clone it.*
 
-### Steps 
+### Steps
 
 1.  **Create .Rproj locally**: File \> New project \> New directory \> New project \> give clean project name (i.e. directory name) \> Select the local project location \> Tick ☐ Create a git repository and ☐ Use renv with this project \> Create project
 
@@ -23,9 +22,9 @@ If the project already exists on GitHub. Clone it.*
 
     outputs/
 
-    figures
+    figures/
 
-    tables
+    tables/
 
     notebooks/
 
@@ -33,62 +32,64 @@ If the project already exists on GitHub. Clone it.*
 
     data/raw/ means: Ignore a folder named `raw` that exists inside a folder called **`data`**
 
-    # ===============================
-    # RAW / SENSITIVE / LARGE DATA
-    # ===============================
-    data/
-    plan/
-    *.fastq
-    *.fq
-    *.bam
-    *.sam
-    *.vcf
-    *.fasta
-    *.fcs
-
-    # ===============================
-    # R PROJECT TEMP FILES
-    # ===============================
-    .Rhistory
-    .RData
-    .Ruserdata
-    .Rproj.user/
-
-    # ===============================
-    # RENV (VERY IMPORTANT RULE)
-    # ===============================
-    renv/library/
-    renv/staging/
-    # keep renv.lock (DO NOT ignore)
-
-    # ===============================
-    # OUTPUTS THAT CAN BE REGENERATED
-    # ===============================
-    outputs/
-    results/
-    figures/
-    *.png
-    *.pdf
-    *.tiff
-    *.jpeg
-
-    # ===============================
-    # CACHE / RENDER ARTIFACTS
-    # ===============================
-    *_cache/
-    *_files/
-
-    # ===============================
-    # OS / EDITOR JUNK
-    # ===============================
-    .DS_Store
-    Thumbs.db
-    desktop.ini
-
-    # ===============================
-    # LOGS
-    # ===============================
-    *.log
+    ```{r}
+     # # ===============================
+     #    # RAW / SENSITIVE / LARGE DATA
+     #    # ===============================
+     #    data/
+     #    plan/
+     #    *.fastq
+     #    *.fq
+     #    *.bam
+     #    *.sam
+     #    *.vcf
+     #    *.fasta
+     #    *.fcs
+     # 
+     #    # ===============================
+     #    # R PROJECT TEMP FILES
+     #    # ===============================
+     #    .Rhistory
+     #    .RData
+     #    .Ruserdata
+     #    .Rproj.user/
+     # 
+     #    # ===============================
+     #    # RENV (VERY IMPORTANT RULE)
+     #    # ===============================
+     #    renv/library/
+     #    renv/staging/
+     #    # keep renv.lock (DO NOT ignore)
+     # 
+     #    # ===============================
+     #    # OUTPUTS THAT CAN BE REGENERATED
+     #    # ===============================
+     #    outputs/
+     #    results/
+     #    figures/
+     #    *.png
+     #    *.pdf
+     #    *.tiff
+     #    *.jpeg
+     # 
+     #    # ===============================
+     #    # CACHE / RENDER ARTIFACTS
+     #    # ===============================
+     #    *_cache/
+     #    *_files/
+     # 
+     #    # ===============================
+     #    # OS / EDITOR JUNK
+     #    # ===============================
+     #    .DS_Store
+     #    Thumbs.db
+     #    desktop.ini
+     # 
+     #    # ===============================
+     #    # LOGS
+     #    # ===============================
+     #    *.log
+    ```
 
     If you already committed data_raw **before adding `.gitignore`**, Git will still track it.
 

@@ -1,11 +1,10 @@
-#Load required packages----
-if(!require("pacman")) intall.packages(pacman)
-pacman::p_load(here, tidyverse, gt, gtsummary, cardx, easystats, broom.helpers,
-               metan)
+#load packages----
+source(here("scripts/00-setup.R"))
+
 
 
 #import data----
-raw_KAP <- read_csv(here("clean_data/KAP_csv.csv"))
+raw_KAP <- read_csv(here("data"))
 
 
 #Data wrangling----

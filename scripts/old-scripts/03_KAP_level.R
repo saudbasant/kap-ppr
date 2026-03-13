@@ -1,12 +1,14 @@
-#load packages----
-source(here("scripts/00-setup.R"))
-
+#Load requied packages----
+if(!require("pacman")) intall.packages(pacman)
+pacman::p_load(here, tidyverse, gt, gtsummary, cardx, easystats, broom.helpers,
+               metan)
 
 
 #import data----
-data_coded <- read_csv(here("data/processed-339/coded339.csv"))
-is.na(data_coded)
-vis_miss(data_coded)
+kap_coded <- read_csv(here("clean_data/KAP_processed.csv"))
+
+
+
 #categorize KAP level
 kap_coded_binary <- kap_coded |> 
   mutate(knowledge_level = case_when(knowledge_pct < 75 ~ "Poor",
