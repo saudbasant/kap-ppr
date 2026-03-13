@@ -1,26 +1,315 @@
 ---
-title: "KAP_PPR_women"
+title: "Documentation for version control"
 format: html
 editor: visual
 ---
 
-## Quarto
+*If the project does not exist anywhere. Create locally first.
+If the project already exists on GitHub. Clone it.*
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+### Steps 
 
-## Running Code
+1.  **Create .Rproj locally**: File \> New project \> New directory \> New project \> give clean project name (i.e. directory name) \> Select the local project location \> Tick ☐ Create a git repository and ☐ Use renv with this project \> Create project
 
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+2.  **Organize folders:**
+
+    data/
+
+    raw/
+
+    processed/
+
+    scripts/
+
+    outputs/
+
+    figures
+
+    tables
+
+    notebooks/
+
+3.  **Add file types to ignore in the .gitignore file**
+
+    data/raw/ means: Ignore a folder named `raw` that exists inside a folder called **`data`**
+
+    # ===============================
+    # RAW / SENSITIVE / LARGE DATA
+    # ===============================
+    data/
+    plan/
+    *.fastq
+    *.fq
+    *.bam
+    *.sam
+    *.vcf
+    *.fasta
+    *.fcs
+
+    # ===============================
+    # R PROJECT TEMP FILES
+    # ===============================
+    .Rhistory
+    .RData
+    .Ruserdata
+    .Rproj.user/
+
+    # ===============================
+    # RENV (VERY IMPORTANT RULE)
+    # ===============================
+    renv/library/
+    renv/staging/
+    # keep renv.lock (DO NOT ignore)
+
+    # ===============================
+    # OUTPUTS THAT CAN BE REGENERATED
+    # ===============================
+    outputs/
+    results/
+    figures/
+    *.png
+    *.pdf
+    *.tiff
+    *.jpeg
+
+    # ===============================
+    # CACHE / RENDER ARTIFACTS
+    # ===============================
+    *_cache/
+    *_files/
+
+    # ===============================
+    # OS / EDITOR JUNK
+    # ===============================
+    .DS_Store
+    Thumbs.db
+    desktop.ini
+
+    # ===============================
+    # LOGS
+    # ===============================
+    *.log
+
+    If you already committed data_raw **before adding `.gitignore`**, Git will still track it.
+
+    `.gitignore` only affects **new tracking decisions**, not past commits.
+
+    To fix that, you must remove tracking manually:
+
+    ```{bash}
+    git rm -r --cached data_raw/
+
+    git commit -m "Stop tracking data_raw folder"
+    ```
+
+4.  **Initialize git** (Inside terminal tab of Rstudio)
+
+    ```{bash}
+    git init #Start git
+    git add . #Add all current files to commit staging area
+    git commit -m 'initial project structure'
+
+    #To verify if commit has occured
+    git log
+    ```
+
+    Note: We can check the status of the project
+
+    ```{bash}
+    git status
+    ```
+
+5.  Change branch master to main
+
+    ```{bash}
+    git branch -M main
+    ```
+
+6.  **Create GitHub repo in your profile**
+
+    -Name the repo same as the local project name
+
+7.  Connect local repo to GitHub remote: The link is obtained from creating the github repo.
+
+    ```{bash}
+    git remote add origin https://github.com/USERNAME/kap-ppr.git
+    ```
+
+8.  Push first time
+
+    ```{bash}
+    git push -u origin main
+    ```
+
+9.  **Establish daily workflow habit**
+
+    ```{bash}
+    git add .
+    git commit -m "Describe what changed"
+    git push
+    ```
+
+#### renv hygiene
+
+#Check Environment ststus
 
 ```{r}
-1 + 1
+renv::status()
+# Shows:
+# packages installed but not recorded
+# packages recorded but missing
 ```
 
-You can add options to executable code like this
+After installing new packages, after analysis completion, before pushing to github, run following in console
 
-```{r}
-#| echo: false
-2 * 2
+`r renv::snapshot()`
+
+This updates `renv.lock`
+
+Commit renv.lock to Git
+
+```{bash}
+git add renv.lock
+git commit -m "Update renv environment"
+git push
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+If you open project later or on another machine:
+
+`r renv::restore()`
+
+This recreates exact environment.
+
+![](images/clipboard-2420340721.png)
+
+![](images/clipboard-3380253618.png)
+
+## I changed the .gitignore file in Rstudio, hat should I do next to version control it? I added a readme file to the in github repo, what should I do next?
+
+1.  Changed `.gitignore` **locally**
+
+2.  Added `README` **directly on GitHub (remote)**
+
+This means your **local repo and remote repo are now different**.\
+So the next steps are very logical.
+
+# Part 1. You edited `.gitignore` locally
+
+You must **commit and push that change**.
+
+### Step 1. Stage the change
+
+In Terminal:
+
+```         
+git add .gitignore 
+```
+
+(or simply)
+
+```         
+git add . 
+```
+
+### Step 2. Commit
+
+```         
+git commit -m "Update gitignore to ignore data folders" 
+```
+
+Now your local timeline has a new version.
+
+# Part 2. You created README on GitHub
+
+Now remote has a new commit which your local repo does not know.
+
+So before pushing anything, you must **pull first**.
+
+Very important rule in Git:
+
+> Always pull before push if remote changed.
+
+## Step 3. Pull from GitHub
+
+Run:
+
+```         
+git pull origin main 
+```
+
+This will:
+
+-   download README
+
+-   merge it into your local project
+
+Now both local and remote histories become aligned.
+
+## Step 4. Now push your `.gitignore` update
+
+```         
+git push 
+```
+
+Now GitHub repo will contain:
+
+-   README
+
+-   updated `.gitignore`
+
+-   scripts
+
+-   renv.lock
+
+-   full project structure
+
+# Important scientific Git habit to remember forever
+
+Workflow order:
+
+```         
+Pull → Work → Add → Commit → Push 
+```
+
+Never:
+
+```         
+Work → Push blindly 
+```
+
+Because collaboration or GitHub edits may exist.
+
+# Bonus advice (very important)
+
+Avoid editing files directly on GitHub unless necessary.
+
+Better workflow:
+
+-   Edit README locally in RStudio
+
+-   Commit
+
+-   Push
+
+This keeps **single source of truth = your local repo**.
+
+Direct GitHub editing is useful only for:
+
+-   quick typo fix
+
+-   emergency note
+
+-   web-only change
+
+You are now very close to having a **fully operational research version-control system**.\
+Next natural evolution will be:
+
+-   writing proper reproducibility README
+
+-   structured commit messages
+
+-   branching for model experiments
+
+-   possibly GitHub Issues for research planning
+
+This is where computational research starts becoming engineered rather than improvised.
