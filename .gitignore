@@ -2,6 +2,7 @@
 # RAW / SENSITIVE / LARGE DATA
 # ===============================
 data/
+plan/
 *.fastq
 *.fq
 *.bam
