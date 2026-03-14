@@ -1,10 +1,13 @@
 #load packages----
-source(here("scripts/00-setup.R"))
-
+source("scripts/00-setup.R")
+library(DataExplorer)
 
 #Import data
 data <- read_csv(here("data/processed-339/processed339.csv"))
-names(data)
+
+#Create raw reports
+create_report(data)
+plot_missing(data)
 
 #Descriptive Demographic----
 data |> 
