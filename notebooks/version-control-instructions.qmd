@@ -331,3 +331,7 @@ Next natural evolution will be:
 -   possibly GitHub Issues for research planning
 
 This is where computational research starts becoming engineered rather than improvised.
+
+In setup script only load core packages that are used across many scripts and are central to workflow.
+
+Other packages that are less used should be loaded in that specific R script head.

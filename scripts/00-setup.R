@@ -4,6 +4,8 @@ library(tidyverse)
 library(gt)
 library(gtsummary)
 library(naniar)
+library(tidyplots)
+
 
 # Global plotting theme
 theme_set(theme_bw())
