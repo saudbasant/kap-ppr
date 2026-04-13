@@ -37,6 +37,62 @@ data |>
   gtsave(here("outputs/tables/Knowledge_summary.docx"))
 
 
+
+# Table is new format
+library(binom) #To create Wilson Confidence Interval
+
+# store original column order
+question_order <- names(data |> select(20:23,25:32))
+
+kap_table <- data |>
+  select(all_of(question_order)) |>
+  
+  pivot_longer(
+    cols = everything(),
+    names_to = "question",
+    values_to = "response"
+  ) |>
+  
+  # preserve question order
+  mutate(question = factor(question, levels = question_order)) |>
+  
+  count(question, response) |>
+  
+  group_by(question) |>
+  mutate(
+    total = sum(n),
+    percent = (n/total)*100
+  ) |>
+  
+  mutate(
+    ci = binom.confint(n, total, method = "wilson"),
+    ci_low = round(ci$lower*100,1),
+    ci_high = round(ci$upper*100,1),
+    percent = round(percent,2)
+  ) |>
+  
+  mutate(
+    Percent_CI = paste0(percent, " (", ci_low, "–", ci_high, ")")
+  ) |>
+  
+  # # sort responses within each question
+  # arrange(question, desc(n)) |>
+  
+  select(question, response, n, Percent_CI)
+
+kap_table |>
+  gt(groupname_col = "question") |>
+  cols_label(
+    response = "Knowledge questions",
+    n = "Frequency",
+    Percent_CI = "% (95% CI)"
+  ) |>
+  tab_caption("Table 2. Knowledge of the farmers regarding PPR (n = 339)") |> 
+  gtsave(here("outputs/tables/descriptive-wilsonCI.docx"))
+
+
+
+
 names(data)
 #Attitude descriptive
 data |>

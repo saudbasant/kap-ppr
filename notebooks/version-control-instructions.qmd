@@ -202,7 +202,7 @@ git add .
 git commit -m "Wrangling + descriptive stats + update environment" git push
 ```
 
-## I changed the .gitignore file in Rstudio, hat should I do next to version control it? I added a readme file to the in github repo, what should I do next?
+## I changed the .gitignore file in Rstudio, what should I do next to version control it? I added a readme file to the in github repo, what should I do next?
 
 1.  Changed `.gitignore` **locally**
 
